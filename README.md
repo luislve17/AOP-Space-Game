@@ -21,7 +21,7 @@ Juego de naves clásico, implementado aplicando el paradigma Aspect Oriented Pro
 
 ## Documentación
 
-> Collision.py
+> **Collision.py**
 * class AbstractDecorator(Entity): Clase de envoltura destinada a la generación de un aspecto genérico. Funcionará como padre al aplicar decoradores como la colisión.
 
 * class CollisionAttributte(AbstractDecorator): Clase de aspecto _'colisión'_, que permite manipular las _hitbox_ de las entidades, revisando si existen colisión entre estas. La función central a considerar es la siguiente:
@@ -41,14 +41,10 @@ def is_collided_with(self, entity, entity_list): # Usando un par de entidades
 
 
 
-> Control.py: Este apartado permite definir la cinemática de las entidades, ya sea aquellas controladas por el usuario, como los de patrones predefinidos. A destacar:
+> **Control.py:** Este apartado permite definir la cinemática de las entidades, ya sea aquellas controladas por el usuario, como los de patrones predefinidos. A destacar:
 
 ```py
-class Control():
-    def __init__(self, Entity, control_dict):
-		  self.controlled_entity = Entity
-		  self.control_dict = control_dict
-    
+...
   def check_control(self, keys_pressed=None, dt=0, entity_list=None):
 		    for key, action in self.control_dict.items(): # Del diccionario de controles definido
 			        if not isinstance(key, str): # Si el elemento fue un 'key stroke'
@@ -56,11 +52,12 @@ class Control():
 					              action(self.controlled_entity, dt, entity_list) # Y aplicar la accion pertinente
 			        elif re.match(r'static_\d+', key) is not None: # Si no, se verifica que el elemento se ligo a una accion 'static_\d'
                    action(self.controlled_entity, dt, entity_list) # Y se aplica la accion estatica
+...
 ```
 
-> Entity.py: Aquí se definen las características y métodos genéricos de las entidades a utilizar, basándonos en la estructura mostrada en el gráfico UML previo.
+> **Entity.py:** Aquí se definen las características y métodos genéricos de las entidades a utilizar, basándonos en la estructura mostrada en el gráfico UML previo.
 
-> main.py: Archivo contenedor del _loop_ de juego principal. Aquí se generan las entidades estática y dinámicamente, en función a los personajes principales (protagonista y enemigo) y los proyectiles y esbirros generados durante la ejecución del juego. Cabe resaltar el uso de un _garbage collector_ para aumentar la eficiencia de ejecución del juego. Se muestra el loop principal a continuación
+> **main.py:** Archivo contenedor del _loop_ de juego principal. Aquí se generan las entidades estática y dinámicamente, en función a los personajes principales (protagonista y enemigo) y los proyectiles y esbirros generados durante la ejecución del juego. Cabe resaltar el uso de un _garbage collector_ para aumentar la eficiencia de ejecución del juego. Se muestra el loop principal a continuación
 
 ```py
 ...
