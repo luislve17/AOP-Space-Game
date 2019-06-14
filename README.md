@@ -18,6 +18,24 @@ Juego de naves clásico, implementado aplicando el paradigma Aspect Oriented Pro
 ## Documentación
 
 > Collision.py
+* class AbstractDecorator(Entity): Clase de envoltura destinada a la generación de un aspecto genérico. Funcionará como padre al aplicar decoradores como la colisión.
+
+* class CollisionAttributte(AbstractDecorator): Clase de aspecto _'colisión'_, que permite manipular las _hitbox_ de las entidades, revisando si existen colisión entre estas. La función central a considerar es la siguiente:
+
+```py
+def is_collided_with(self, entity, entity_list):
+  collision_bool = self.border.colliderect(entity.border)
+        if collision_bool:
+            if self.physics['object'] != entity.physics['object']:
+                for e in entity_list:
+                    if e is self or e is entity:
+                        current_life = e.physics['life']
+                        e.physics['life'] = current_life - 1 if current_life >= 0 else 0
+                        if e is entity:
+                            del e.physics["object"]
+```
+
+
 
 > Control.py
 
